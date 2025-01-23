@@ -11,13 +11,13 @@ public class Main {
         System.out.println(New);
     }
 
-    // Combined method for checking palindrome for both int and String
+
     public static Boolean Palin(Object input){
         String str = String.valueOf(input);
         return PalHelper(str, 0, str.length() - 1);
     }
 
-    // Helper method for palindrome check
+
     public static Boolean PalHelper(String str, int left, int right){
         if (left >= right){
             return true;
@@ -28,7 +28,7 @@ public class Main {
         return PalHelper(str, left + 1, right - 1);
     }
 
-    // Method for finding average and other statistics
+
     public static Map<String, Integer> FindAvr(List<Integer> numbers){
         Map<String, Integer> stats = new HashMap<>();
         int sum = 0;
@@ -43,7 +43,6 @@ public class Main {
         stats.put("max", max);
         stats.put("min", min);
 
-        // Find second max and second min
         int secondMax = Integer.MIN_VALUE;
         int secondMin = Integer.MAX_VALUE;
         for (int number : numbers){
@@ -54,8 +53,8 @@ public class Main {
                 secondMin = number;
             }
         }
-        stats.put("second_max", secondMax == Integer.MIN_VALUE ? null : secondMax); // Handle case where second max is not found
-        stats.put("second_min", secondMin == Integer.MAX_VALUE ? null : secondMin); // Handle case where second min is not found
+        stats.put("second_max", secondMax == Integer.MIN_VALUE ? null : secondMax);
+        stats.put("second_min", secondMin == Integer.MAX_VALUE ? null : secondMin);
 
         return stats;
     }
