@@ -2,7 +2,7 @@ import java.util.*;
 
 public class Main {
     public static void main(String[] args){
-        List<Integer> list  = List.of(1,3,0,4,12);
+        List<Integer> list  = List.of(1, 3, 0, 4, 12);
         Map<String, Integer> New = FindAvr(list);
         Boolean ans = Palin(122111);
         Boolean ans1 = Palin("ama");
@@ -10,63 +10,53 @@ public class Main {
         System.out.println(ans1);
         System.out.println(New);
     }
-    public static Boolean Palin(int number){
-        String str  = String.valueOf(number);
 
-        return PalHelper(number,0,str.length()-1);
+    // Combined method for checking palindrome for both int and String
+    public static Boolean Palin(Object input){
+        String str = String.valueOf(input);
+        return PalHelper(str, 0, str.length() - 1);
     }
-    public static Boolean Palin(String number){
-        return PalHelper(number,0,number.length()-1);
-    }
-    public static Boolean PalHelper(String str,int left,int right){
-        String number = String.valueOf(str);
+
+    // Helper method for palindrome check
+    public static Boolean PalHelper(String str, int left, int right){
         if (left >= right){
             return true;
         }
-        if (number.charAt(left)!=number.charAt(right)){
+        if (str.charAt(left) != str.charAt(right)){
             return false;
         }
-        return PalHelper(str,left +1,right-1);
+        return PalHelper(str, left + 1, right - 1);
     }
 
-    public static Boolean PalHelper(int str,int left,int right){
-        String number = String.valueOf(str);
-        if (left >= right){
-            return true;
-        }
-        if (number.charAt(left)!=number.charAt(right)){
-            return false;
-        }
-        return PalHelper(str,left +1,right-1);
-    }
-    public static  Map<String, Integer> FindAvr(List<Integer> numbers){
-        Map<String,Integer> slovar = new HashMap<>();
+    // Method for finding average and other statistics
+    public static Map<String, Integer> FindAvr(List<Integer> numbers){
+        Map<String, Integer> stats = new HashMap<>();
         int sum = 0;
-        int len = 0;
-        for ( int number:numbers){
+        int len = numbers.size();
+        for (int number : numbers){
             sum += number;
-            len +=1;
         }
-        int Max = Collections.max(numbers);
-        int Min = Collections.min(numbers);
-        slovar.put("Sum",sum);
-        slovar.put("Avr",sum/len);
-        slovar.put("max",Max);
-        slovar.put("min",Min);
-        int second_max = Integer.MIN_VALUE;
-        int second_min = Integer.MAX_VALUE;
-        for ( int number:numbers){
-            if (number>second_max & number < Max){
-                second_max = number;
-            }
-            if (number<second_min & number > Min){
-                second_min = number;
+        int max = Collections.max(numbers);
+        int min = Collections.min(numbers);
+        stats.put("Sum", sum);
+        stats.put("Avg", sum / len);
+        stats.put("max", max);
+        stats.put("min", min);
 
+        // Find second max and second min
+        int secondMax = Integer.MIN_VALUE;
+        int secondMin = Integer.MAX_VALUE;
+        for (int number : numbers){
+            if (number > secondMax && number < max){
+                secondMax = number;
+            }
+            if (number < secondMin && number > min){
+                secondMin = number;
             }
         }
-        slovar.put("second_max",second_max);
-        slovar.put("Second_min",second_min);
-        return slovar;
+        stats.put("second_max", secondMax == Integer.MIN_VALUE ? null : secondMax); // Handle case where second max is not found
+        stats.put("second_min", secondMin == Integer.MAX_VALUE ? null : secondMin); // Handle case where second min is not found
+
+        return stats;
     }
-
 }
